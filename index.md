@@ -67,7 +67,63 @@ Y esto es lo que lleva a la vacuna a tener una eficacia del 95%.
 
 ![](https://berthub.eu/articles/vaccine-toc.png)
 
+Esta es una especie de tabla de contenido. Comenzaremos con la 'gorra', en realidad representada como un pequeño sombrero.
+
+Al igual que no se puede introducir instruccciones directamente en el código de una computadora y ejecutarlo, el sistema operativo biológico requiere encabezados, y también enlazadores y cosas como convenciones a la hora de hacer llamadas.
+
+El código de la vacuna comienza con los siguientes dos nucleótidos:
+
+```
+GA
+```
+
+Esto se puede comparar direcatemente con los archivos ejecutables de MS-DOS y Windows que comienzan con las letras `MZ` , o con los scripts de UNIX que comienzan con `#!`. Tanto en la vida como en los sistemas operativos, estos dos caracteres no describen ningun proceso biológico o instrucción. Pero tienen que estar ahí porque de lo contrario no pasaría nada.
+
+La 'gorra' del ARNm tiene varias funciones. Por un lado, indica que el código (o conjunto de caracteres) que vienen después provienen del núcleo de la célula. En nuestro caso, por supuesto que no, nuestro código proviene de una vacuna. Pero no hay decirle eso a la célula! La "gorra" hace que nuestro código parezca legítimo, lo que lo protege de ser destruido.
+
+Los dos nucleótidos iniciales `GA` también son ligeramente diferentes en términos químicos del resto del ARN. En este sentido, los dos nucleótidos `GA` contienen algun tipo de señalización *fuera de banda*.
 
 
+## La "región sin traducir 5' "
 
-<a name="myfootnote1">1</a>: Código fuente es un término utilizado en informática para referirse al conjunto de instrucciones que una computadora puede interpretar para llevar a cabo una determinada tarea. En este [enlace](https://github.com/andresmasegosa/Vacunas-Covid/edit/gh-pages/index.md) puedes ver el código fuente de esta web. 
+Algo de jerga aquí. Las moléculas de ARN solo se pueden leer en una dirección. De manera algo confusa, la parte donde comienza la lectura de una molécula de ARN se le llama 5' o *cinco primo*. Y la parte donde se termina la lectura de una molécula de ARN se le llama 3' o *tres primo*.
+
+La vida consiste en proteínas (o cosas hechas por proteínas). Y estas proteínas se describen en ARN. Cuando el ARN se convierte en proteínas, esto se llama **traducción**.
+
+Aquí tenemos la región 5' *no traducida* ("5' UTR"), por lo que estos bits/caracteres no aparecen dentro de la proteína:
+
+```
+GAAΨAAACΨAGΨAΨΨCΨΨCΨGGΨCCCCACAGACΨCAGAGAGAACCCGCCACC
+```
+
+Aquí encontramos nuestra primera sorpresa. Los caracteres normales del ARN son A, C, G y U. U también se conoce como 'T' en el ADN. Pero aquí encontramos un Ψ, ¿qué está pasando?
+
+Este es uno de los aspectos excepcionalmente más inteligentes de la vacuna. Nuestro cuerpo ejecuta un potente sistema antivirus ("el original"). Por esta razón, las células son muy poco entusiastas con el ARN extraño y se esfuerzan mucho por destruirlo antes de que haga algo.
+
+Esto es un problema para nuestra vacuna: debe escabullirse de nuestro sistema inmunológico. Durante muchos años de experimentación, se descubrió que si la U en el ARN se reemplaza por una molécula ligeramente modificada, nuestro sistema inmunológico pierde el interés en destuirlo. Es así, de verdad!
+
+Entonces, en la vacuna BioNTech/Pfizer, cada U ha sido reemplazada por *1-metil-3'-pseudouridililo*, denotado por Ψ. Lo realmente inteligente es que, aunque este reemplazo Ψ aplaca (calma) nuestro sistema inmunológico, es aceptado como una U normal por partes relevantes de la célula!
+
+En seguridad informática también conocemos este truco: a veces es posible transmitir una versión ligeramente dañada de un mensaje que confunde los firewalls y las soluciones de seguridad, pero que aún es aceptado por los servidores finales, que luego pueden ser pirateados.
+
+
+Ahora estamos cosechando los beneficios de la investigación científica fundamental realizada en el pasado. Los [descubridores](https://twitter.com/PennMedicine/status/1341766354232365059) de esta técnica tuvieron que luchar para conseguir financiar [su trabajo](https://www.statnews.com/2020/11/10/the-story-of-mrna-how-a-once-dismissed-idea-became-a-leading-technology-in-the-covid-vaccine-race/) y ser aceptado. Todos deberíamos estar muy agradecidos y estoy seguro de que [los premios Nobel llegarán a su debido tiempo](https://twitter.com/PowerDNS_Bert/status/1329861047168225281).
+
+>Mucha gente se ha preguntado si los virus también podrían utilizar la técnica Ψ para vencer a nuestro sistema inmunológico. En resumen, esto es extremadamente improbable. La vida simplemente no tiene la maquinaria para construir nucleótidos de *1-metil-3'-pseudouridililo*. Los virus dependen de la maquinaria de la vida para reproducirse, y esta *infraestructura* simplemente no existe. Las vacunas de ARNm se degradan rápidamente en el cuerpo humano y no hay posibilidad de que el ARN modificado en Ψ se replique con el Ψ todavía allí. [“No, de verdad, las vacunas de ARNm no afectarán su ADN”](https://www.deplatformdisease.com/blog/no-really-mrna-vaccines-are-not-going-to-affect-your-dna) también es una buena lectura.
+
+Ok, volvamos a la zona *no traducida* 5'. ¿Qué hacen estos 51 caracteres? Como todo en la naturaleza, casi nada tiene una función clara.
+
+Cuando nuestras células necesitan traducir ARN en proteínas, esto se hace utilizando una máquina llamada *ribosoma*. El ribosoma es como una impresora 3D de proteínas. Ingiere una cadena de ARN y, en base a eso, emite una cadena de aminoácidos, que luego se pliegan en una proteína.
+
+![](https://berthub.eu/articles/protein-short.mp4)
+
+Esto es lo que vemos que sucede en el video de aquí arriba. La cinta negra en la parte inferior es ARN. La cinta que aparece en la parte verde es la proteína que se está formando. Las cosas que entran y salen son aminoácidos junto con adaptadores para que encajen en el ARN.
+
+Este ribosoma necesita situarse físicamente en la hebra de ARN para que funcione. Una vez situado, puede comenzar a formar proteínas basadas en el nuevo ARN que va ingiriendo. A partir de esto, uno puede imaginar como el ribosoma no puede leer la parte de la hebra del ARN donde *aterriza* al principio. Esta es solo una de las funciones de estas zonas *no traducidas*: ser la pista de aterrizaje del ribosoma. Las zonas *no traducidas* son como una "introducción".
+
+Además de esto, las zonas *no traducidas* también contienen metadatos<sup>[2](#myfootnote2)</sup>: ¿cuándo debe realizarse la traducción? ¿Y cuánto? Para la vacuna, tomaron la mayor cantidad de UTR zonas *no traducidas* que pudieron encontrar 'ahora mismo', extraída del [gen de la alfa globina](https://www.tandfonline.com/doi/full/10.1080/15476286.2018.1450054). Se sabe que este gen produce de forma robusta muchas proteínas. En años anteriores, los científicos ya habían encontrado formas de optimizar aún más estas zonas *no traducidas* del ARN (según el documento de la OMS), por lo que esta no es exactamente la zona *no traducidas* de alfa globina. Es mejor.
+
+
+<a name="myfootnote1">1</a>: (NT) Código fuente es un término utilizado en informática para referirse al conjunto de instrucciones que una computadora puede interpretar para llevar a cabo una determinada tarea. En este [enlace](https://github.com/andresmasegosa/Vacunas-Covid/edit/gh-pages/index.md) puedes ver el código fuente de esta web. 
+
+<a name="myfootnote2">2</a>:(NT) Es común [describir](https://blog.powerdata.es/el-valor-de-la-gestion-de-datos/que-son-los-metadatos-y-cual-es-su-utilidad#:~:text=Es%20com%C3%BAn%20describir%20el%20t%C3%A9rmino,la%20informaci%C3%B3n%20de%20los%20mismos.) el término metadatos como datos que describen otros datos o "datos sobre datos". De forma general, en efecto, el concepto de metadatos se refiere a aquellos datos que hablan de los datos, es decir, describen el contenido de los archivos o la información de los mismos.
