@@ -1,9 +1,8 @@
 # Ingeniería inversa del código fuente de la vacuna BioNTech / Pfizer SARS-CoV-2
 
-> Este artículo es una traducción de un artículo publicado en inglés [Reverse Engineering the source code of the BioNTech/Pfizer SARS-CoV-2 Vaccine](https://berthub.eu/articles/posts/reverse-engineering-source-code-of-the-biontech-pfizer-vaccine/). LA traducción está hecha con ayuda de [Google Translage](https://translate.google.es/). Si ves una errata, eres bienvenid@ de hacer una PR. 
+> Este artículo es una traducción del siguiente artículo publicado originalmente en inglés: [Reverse Engineering the source code of the BioNTech/Pfizer SARS-CoV-2 Vaccine](https://berthub.eu/articles/posts/reverse-engineering-source-code-of-the-biontech-pfizer-vaccine/). La traducción está hecha con ayuda de [Google Translate](https://translate.google.es/). Si ves una errata, eres bienvenid@ a hacer una PR. 
 > 
 > El artículo aquí descrito proporciona descripción de la vacuna de BioNTech/Pfizer utilizando una analogía con las computadoras. Creo que es una perspectiva muy interesante que ayuda a comprender la complejidad y la potencia de este tipo de tecnología. 
-
 
 
 ¡Bienvenidos! En esta publicación, analizaremos, carácter por carácter, el código fuente<sup>[1](#myfootnote1)</sup> de la vacuna de ARNm del SARS-CoV-2 de BioNTech / Pfizer.
@@ -16,11 +15,13 @@ Esto que digo puede resultar algo discordante: la vacuna es un líquido que se i
 Esta es una buena pregunta, así que comencemos con una pequeña parte del mismo código fuente de la vacuna BioNTech / Pfizer, también conocida como [BNT162b2](https://en.wikipedia.org/wiki/Tozinameran) , también conocida como Tozinameran también conocida como [Comirnaty](https://twitter.com/PowerDNS_Bert/status/1342109138965422083).
 
 ![](https://berthub.eu/articles/bnt162b2.png)
+
 *Primeros 500 caracteres del ARNm de BNT162b2. Fuente: [Organización Mundial de la Salud](https://mednet-communities.net/inn/db/media/docs/11889.doc).*
 
 El "corazón" de la vacuna de ARNm BNT162b tiene el código digital que aparece en esta imagen de arriba. En total, tiene 4284 caracteres, por lo que cabría en unos cuantos tweets. Al comienzo del proceso de producción de la vacuna, alguien cargó este código en una impresora de ADN (sí), que luego convirtió estos bytes almacenenados en su disco duro en moléculas de ADN reales.
 
 ![](https://berthub.eu/articles/bioxp-3200.jpg)
+
 *Una impresora de ADN [Codex DNA](https://codexdna.com/products/bioxp-system/) BioXp 3200*
 
 De una máquina así salen pequeñas cantidades de ADN, que después de mucho procesamiento biológico y químico terminan como ARN (hablaré sobre esto de nuevo más adelante) en el vial de la vacuna. Una dosis de 30 microgramos en realidad contiene 30 microgramos de ARN. Además, tiene un sistema inteligente de empaquetado de lípidos (grasos) que lleva el ARNm a nuestras células.
@@ -50,15 +51,22 @@ Bastante digital hasta ahora. En caso de duda, consulte el documento de la OMS c
 ## Entonces, ¿qué hace ese código?
 
 
-La idea de una vacuna es enseñarle a nuestro sistema inmunológico cómo combatir un patógeno, sin que realmente nos enfermemos. Históricamente, esto se ha hecho inyectando un virus debilitado o incapacitado (atenuado), más un 'adyuvante' para asustar a nuestro sistema inmunológico y ponerlo en acción. Esta era una técnica decididamente análoga que involucraba miles de millones de huevos (o insectos). También requirió mucha suerte y mucho tiempo. A veces, también se utilizó un virus diferente (no relacionado).
+La idea de una vacuna es enseñarle a nuestro sistema inmunológico cómo combatir un patógeno, sin que enfermemos nosotros mismos. Históricamente, esto se ha hecho inyectando un virus debilitado o incapacitado (atenuado), más un 'adyuvante' para asustar a nuestro sistema inmunológico y ponerlo en acción. Esta era una técnica decididamente análoga que involucraba miles de millones de huevos (o insectos). También requirió mucha suerte y mucho tiempo. A veces, también se utilizó un virus diferente (no relacionado).
 
 Una vacuna de ARNm logra lo mismo ('educar a nuestro sistema inmunológico') pero de una manera similar al láser. Y lo digo en ambos sentidos: muy limitado pero también muy poderoso.
 
-Pues así es como funciona. La inyección contiene material genético volátil que describe la famosa proteína 'Spike' del SARS-CoV-2. Mediante ingeniosos medios químicos, la vacuna logra introducir este material genético en algunas de nuestras células.
+Pues así es como funciona. La inyección contiene material genético volátil que describe la famosa proteína 'Spike' o de pico del SARS-CoV-2. Mediante medios químicos muy ingeniosos, la vacuna logra introducir este material genético en algunas de nuestras células.
 
-Estos luego, diligentemente, comienzan a producir proteínas de pico de SARS-CoV-2 en cantidades lo suficientemente grandes como para que nuestro sistema inmunológico entre en acción. Enfrentado con las proteínas Spike y (lo que es más importante) los signos reveladores de que las células han sido tomadas, nuestro sistema inmunológico desarrolla una respuesta poderosa contra múltiples aspectos de la proteína Spike Y el proceso de producción.
+Luego, estos comienzan a producir proteínas de pico de SARS-CoV-2 en cantidades lo suficientemente grandes como para que nuestro sistema inmunológico entre en acción. Enfrentado con las proteínas Spike y (lo que es más importante) los signos reveladores de que las células han sido "atacadas", nuestro sistema inmunológico desarrolla una respuesta poderosa contra múltiples aspectos de la proteína Spike **y** su proceso de producción.
 
-Y esto es lo que nos lleva a la vacuna con una eficacia del 95%.
+Y esto es lo que lleva a la vacuna a tener una eficacia del 95%.
+
+## El código fuente!
+
+[Empecemos por el principio, un muy buen punto de partida](https://youtu.be/jp0opnxQ4rY?t%3D8). El documento de la OMS tiene esta imagen que es muy útil:
+
+![](https://berthub.eu/articles/vaccine-toc.png)
+
 
 
 
