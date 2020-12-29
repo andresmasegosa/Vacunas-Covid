@@ -1,9 +1,9 @@
+Este artículo es una traducción del siguiente artículo publicado originalmente en inglés: [Reverse Engineering the source code of the BioNTech/Pfizer SARS-CoV-2 Vaccine](https://berthub.eu/articles/posts/reverse-engineering-source-code-of-the-biontech-pfizer-vaccine/). La traducción está hecha con ayuda de [Google Translate](https://translate.google.es/). Si ves una errata, eres bienvenid@ a hacer una PR. 
+ 
+El artículo aquí descrito proporciona descripción de la vacuna de BioNTech/Pfizer utilizando una analogía con las computadoras. Creo que es una perspectiva muy interesante que ayuda a comprender la complejidad y la potencia de este tipo de tecnología. 
+
+
 # Ingeniería inversa del código fuente de la vacuna BioNTech / Pfizer SARS-CoV-2
-
-> Este artículo es una traducción del siguiente artículo publicado originalmente en inglés: [Reverse Engineering the source code of the BioNTech/Pfizer SARS-CoV-2 Vaccine](https://berthub.eu/articles/posts/reverse-engineering-source-code-of-the-biontech-pfizer-vaccine/). La traducción está hecha con ayuda de [Google Translate](https://translate.google.es/). Si ves una errata, eres bienvenid@ a hacer una PR. 
-> 
-> El artículo aquí descrito proporciona descripción de la vacuna de BioNTech/Pfizer utilizando una analogía con las computadoras. Creo que es una perspectiva muy interesante que ayuda a comprender la complejidad y la potencia de este tipo de tecnología. 
-
 
 ¡Bienvenidos! En esta publicación, analizaremos, carácter por carácter, el código fuente<sup>[1](#myfootnote1)</sup> de la vacuna de ARNm del SARS-CoV-2 de BioNTech / Pfizer.
 
@@ -86,7 +86,7 @@ Los dos nucleótidos iniciales `GA` también son ligeramente diferentes en térm
 
 ## La "región sin traducir 5' "
 
-Algo de jerga aquí. Las moléculas de ARN solo se pueden leer en una dirección. De manera algo confusa, la parte donde comienza la lectura de una molécula de ARN se le llama 5' o *cinco primo*. Y la parte donde se termina la lectura de una molécula de ARN se le llama 3' o *tres primo*.
+Algo de jerga aquí. Las moléculas de ARN solo se pueden leer en una dirección. De manera algo confusa, la parte donde comienza la lectura de una molécula de ARN se le llama 5' o *cinco prima*. Y la parte donde se termina la lectura de una molécula de ARN se le llama 3' o *tres prima*.
 
 La vida consiste en proteínas (o cosas hechas por proteínas). Y estas proteínas se describen en ARN. Cuando el ARN se convierte en proteínas, esto se llama **traducción**.
 
@@ -122,6 +122,52 @@ Esto es lo que vemos que sucede en el video de aquí arriba. La cinta negra en l
 Este ribosoma necesita situarse físicamente en la hebra de ARN para que funcione. Una vez situado, puede comenzar a formar proteínas basadas en el nuevo ARN que va ingiriendo. A partir de esto, uno puede imaginar como el ribosoma no puede leer la parte de la hebra del ARN donde *aterriza* al principio. Esta es solo una de las funciones de estas zonas *no traducidas*: ser la pista de aterrizaje del ribosoma. Las zonas *no traducidas* son como una "introducción".
 
 Además de esto, las zonas *no traducidas* también contienen metadatos<sup>[2](#myfootnote2)</sup>: ¿cuándo debe realizarse la traducción? ¿Y cuánto? Para la vacuna, tomaron la mayor cantidad de UTR zonas *no traducidas* que pudieron encontrar 'ahora mismo', extraída del [gen de la alfa globina](https://www.tandfonline.com/doi/full/10.1080/15476286.2018.1450054). Se sabe que este gen produce de forma robusta muchas proteínas. En años anteriores, los científicos ya habían encontrado formas de optimizar aún más estas zonas *no traducidas* del ARN (según el documento de la OMS), por lo que esta no es exactamente la zona *no traducidas* de alfa globina. Es mejor.
+
+## El péptido señal de la glicoproteína S
+
+Como se señaló, el objetivo de la vacuna es lograr que la célula produzca grandes cantidades de la proteína Spike del SARS-CoV-2. Hasta este punto, hemos encontrado principalmente metadatos y cosas como "convenciones de llamada" en el código fuente de la vacuna. Pero ahora entramos en el territorio real de las proteínas virales.
+
+Sin embargo, todavía nos queda una capa de metadatos. Una vez que el ribosoma (de la espléndida animación anterior) ha producido una proteína, esa proteína todavía necesita ir a alguna parte. Este está codificado en el "péptido señal de la glicoproteína S (secuencia líder extendida)".
+
+La forma de ver esto es que al comienzo de la proteína hay una especie de etiqueta de dirección, codificada como parte de la proteína misma. En este caso específico, el péptido señal dice que esta proteína debe salir de la célula a través del "retículo endoplásmico". ¡Incluso la jerga de Star Trek no es tan elegante como esta!
+
+El "péptido señal" no es muy largo, pero cuando miramos el código, hay diferencias entre el ARN viral y de la vacuna:
+
+(Tenga en cuenta que para fines de comparación, he reemplazado el caracter modificado Ψ por un ARN U normal)
+
+```
+           3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3
+Virus:   AUG UUU GUU UUU CUU GUU UUA UUG CCA CUA GUC UCU AGU CAG UGU GUU
+Vaccine: AUG UUC GUG UUC CUG GUG CUG CUG CCU CUG GUG UCC AGC CAG UGU GUU
+               !   !   !   !   ! ! ! !     !   !   !   !   !            
+```
+
+¿Entonces qué está pasando? No he incluido accidentalmente el ARN en grupos de 3 letras. Tres caracteres de ARN forman un codón. Y cada codón codifica un aminoácido específico. El péptido señal de la vacuna consta exactamente de los mismos aminoácidos que el propio virus.
+
+Entonces, ¿cómo es que el ARN es diferente?
+
+Hay 4³ = 64 codones diferentes, ya que hay 4 caracteres de ARN y hay tres de ellos en un codón. Sin embargo, solo hay 20 aminoácidos diferentes. Esto significa que múltiples codones codifican el mismo aminoácido.
+
+La vida utiliza la siguiente tabla casi universal para mapear codones de ARN en aminoácidos:
+
+![](https://berthub.eu/articles/rna-codon-table.png)
+
+*[La tabla de codones de ARN](https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables) (Wikipedia)*
+
+En esta tabla, podemos ver que las modificaciones en la vacuna (UUU -> UUC) son todas sinónimos. El código de ARN de la vacuna es diferente, pero salen los mismos aminoácidos y la misma proteína.
+
+Si miramos de cerca, vemos que la mayoría de los cambios ocurren en la posición del tercer codón, señalado con un '3' arriba. Y si revisamos la tabla de codones universales, vemos que esta tercera posición de hecho a menudo no importa para qué aminoácido se produce.
+
+Entonces, los cambios son sinónimos, pero ¿por qué están ahí? Mirando de cerca, vemos que todos los cambios excepto uno conducen a más C y Gs.
+
+Entonces, ¿por qué harías eso? Como se señaló anteriormente, nuestro sistema inmunológico ve muy mal el ARN 'exógeno', el código de ARN que proviene del exterior de la célula. Para evadir la detección, la 'U' en el ARN ya fue reemplazada por una Ψ.
+
+Sin embargo, resulta que el ARN con [una mayor cantidad de Gs y Cs](https://www.nature.com/articles/nrd.2017.243) también se [convierte de manera más eficiente en proteínas](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1463026/).
+
+Y esto se ha logrado en el ARN de la vacuna reemplazando muchos caracteres con Gs y Cs siempre que fuera posible.
+
+> Estoy un poco fascinado por el único cambio que no dio lugar a una C o G adicional, la modificación CCA -> CCU. Si alguien sabe la razón, ¡hágamelo saber! Tenga en cuenta que soy consciente de que algunos codones son más comunes que otros en el genoma humano, [pero también leí que esto no influye mucho en la velocidad de traducción](https://journals.plos.org/plosgenetics/article?id%3D10.1371/journal.pgen.1006024).
+
 
 
 <a name="myfootnote1">1</a>: (NT) Código fuente es un término utilizado en informática para referirse al conjunto de instrucciones que una computadora puede interpretar para llevar a cabo una determinada tarea. En este [enlace](https://github.com/andresmasegosa/Vacunas-Covid/edit/gh-pages/index.md) puedes ver el código fuente de esta web. 
