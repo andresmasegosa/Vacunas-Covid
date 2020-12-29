@@ -1,6 +1,6 @@
 Este artículo es una traducción del siguiente artículo publicado originalmente en inglés: [Reverse Engineering the source code of the BioNTech/Pfizer SARS-CoV-2 Vaccine](https://berthub.eu/articles/posts/reverse-engineering-source-code-of-the-biontech-pfizer-vaccine/). La traducción está hecha con ayuda de [Google Translate](https://translate.google.es/). Si ves una errata, eres bienvenid@ a hacer una PR. 
  
-El artículo aquí descrito proporciona descripción de la vacuna de BioNTech/Pfizer utilizando una analogía con las computadoras. Creo que es una perspectiva muy interesante que ayuda a comprender la complejidad y la potencia de este tipo de tecnología. 
+El artículo aquí descrito proporciona una descripción de la vacuna de BioNTech/Pfizer utilizando una analogía con las computadoras. Creo que es una perspectiva muy interesante que ayuda a comprender la complejidad que hay detrás de este tipo de tecnología que, literalmente, va a cambiar la forma en la que actualmente vivimos. 
 
 
 # Ingeniería inversa del código fuente de la vacuna BioNTech / Pfizer SARS-CoV-2
@@ -115,9 +115,7 @@ Ok, volvamos a la zona *no traducida* 5'. ¿Qué hacen estos 51 caracteres? Como
 
 Cuando nuestras células necesitan traducir ARN en proteínas, esto se hace utilizando una máquina llamada *ribosoma*. El ribosoma es como una impresora 3D de proteínas. Ingiere una cadena de ARN y, en base a eso, emite una cadena de aminoácidos, que luego se pliegan en una proteína.
 
-![](https://berthub.eu/articles/protein-short.mp4)
-
-Esto es lo que vemos que sucede en el video de aquí arriba. La cinta negra en la parte inferior es ARN. La cinta que aparece en la parte verde es la proteína que se está formando. Las cosas que entran y salen son aminoácidos junto con adaptadores para que encajen en el ARN.
+Este [video](https://berthub.eu/articles/protein-short.mp4) nos muestra qué es lo que sucede. La cinta negra en la parte inferior es ARN. La cinta que aparece en la parte verde es la proteína que se está formando. Las cosas que entran y salen son aminoácidos junto con adaptadores para que encajen en el ARN.
 
 Este ribosoma necesita situarse físicamente en la hebra de ARN para que funcione. Una vez situado, puede comenzar a formar proteínas basadas en el nuevo ARN que va ingiriendo. A partir de esto, uno puede imaginar como el ribosoma no puede leer la parte de la hebra del ARN donde *aterriza* al principio. Esta es solo una de las funciones de estas zonas *no traducidas*: ser la pista de aterrizaje del ribosoma. Las zonas *no traducidas* son como una "introducción".
 
