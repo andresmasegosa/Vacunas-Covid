@@ -168,6 +168,115 @@ Y esto se ha logrado en el ARN de la vacuna reemplazando muchos caracteres con G
 
 > Estoy un poco fascinado por el único cambio que no dio lugar a una C o G adicional, la modificación CCA -> CCU. Si alguien sabe la razón, ¡hágamelo saber! Tenga en cuenta que soy consciente de que algunos codones son más comunes que otros en el genoma humano, [pero también leí que esto no influye mucho en la velocidad de traducción](https://journals.plos.org/plosgenetics/article?id%3D10.1371/journal.pgen.1006024).
 
+## La proteína Spike real
+
+Los siguientes 3777 caracteres del ARN de la vacuna tienen un 'codón optimizado' similar para agregar muchas C y G. En aras del espacio, no enumeraré todo el código aquí, pero vamos a acercarnos a un bit excepcionalmente especial. Esta es la parte que lo hace funcionar, la parte que realmente nos ayudará a volver a la vida normal:
+
+```
+                  *   *
+          L   D   K   V   E   A   E   V   Q   I   D   R   L   I   T   G
+Virus:   CUU GAC AAA GUU GAG GCU GAA GUG CAA AUU GAU AGG UUG AUC ACA GGC
+Vaccine: CUG GAC CCU CCU GAG GCC GAG GUG CAG AUC GAC AGA CUG AUC ACA GGC
+          L   D   P   P   E   A   E   V   Q   I   D   R   L   I   T   G
+           !     !!! !!        !   !       !   !   !   ! !              
+```
+
+Aquí vemos los cambios habituales de ARN. Por ejemplo, en el primer codón vemos que CUU se cambia a CUG. Esto agrega otra 'G' a la vacuna, que sabemos que ayuda a mejorar la producción de proteínas. Tanto CUU como CUG codifican el aminoácido 'L' o leucina, por lo que nada cambió en la proteína.
+
+Cuando comparamos toda la proteína Spike en la vacuna, todos los cambios son sinónimos... excepto dos, y esto es lo que vemos aquí.
+
+Los codones tercero y cuarto representan cambios reales. Los aminoácidos 'K' y 'V' se reemplazan por 'P' o Prolina. Para 'K' esto requirió tres cambios ('!!!') y para 'V' requirió solo dos ('!!').
+
+
+**Resulta que estos dos cambios mejoran enormemente la eficacia de la vacuna.**
+
+Entonces, ¿Qué esta pasando aquí? Si observa una partícula real de SARS-CoV-2, puede ver la proteína Spike y, bueno, un montón de picos:
+
+![](https://berthub.eu/articles/sars-em.jpg)
+
+*[Partículas del virus del SARS](https://en.wikipedia.org/wiki/Severe_acute_respiratory_syndrome_coronavirus) (Wikipedia)*
+
+Los picos están montados en el cuerpo del virus ('la proteína de la nucleocápside'). Pero la cuestión es que nuestra vacuna solo genera los picos en sí misma, y no los estamos montando en ningún tipo de cuerpo del virus.
+
+Resulta que, las proteínas Spike independientes y no modificadas colapsan en una estructura diferente. Si se inyecta como vacuna, esto de hecho haría que nuestros cuerpos desarrollen inmunidad ... pero solo contra la proteína de pico colapsada.
+
+Y el verdadero SARS-CoV-2 aparece con el pico puntiagudo. La vacuna no funcionaría muy bien en ese caso.
+
+¿Entonces qué es lo que hay que hacer? En 2017 se describió cómo colocar una doble sustitución de Prolina en el lugar correcto que hacía que las proteínas SARS-CoV-1 y MERS S adoptaran su configuración de 'pre-fusión', incluso sin ser parte del virus completo. Esto funciona porque la prolina es un aminoácido muy rígido. Actúa como una especie de férula, estabilizando la proteína en el estado que necesitamos mostrarle al sistema inmunológico.
+
+La gente que descubrió esto debería estar "chocando los cinco" sin cesar. Debería emanar de ellos cantidades insoportables de presunción. Y todo sería bien merecido.
+
+>¡Actualización! Me ha contactado el laboratorio de McLellan , uno de los grupos detrás del descubrimiento de Proline. Me dicen que lo de "chocarse los cinco" no lo hacen demasiado debido a la pandemia en curso, pero están contentos de haber contribuido a las vacunas. También destacan la importancia de muchos otros grupos, trabajadores y voluntarios.
+
+## El final de la proteína, próximos pasos
+
+Si nos desplazamos por el resto del código fuente, encontramos algunas pequeñas modificaciones al final de la proteína Spike:
+
+```
+          V   L   K   G   V   K   L   H   Y   T   s             
+Virus:   GUG CUC AAA GGA GUC AAA UUA CAU UAC ACA UAA
+Vaccine: GUG CUG AAG GGC GUG AAA CUG CAC UAC ACA UGA UGA 
+          V   L   K   G   V   K   L   H   Y   T   s   s          
+               !   !   !   !     ! !   !          ! 
+```
+
+Al final de una proteína encontramos un codón de "parada", denotado aquí por una "s" minúscula. Esta es una forma educada de decir que la proteína debería terminar aquí. El virus original usa el codón de terminación UAA, la vacuna usa dos codones de terminación UGA, quizás solo por si acaso.
+
+## La región 3' (tres prima) sin traducir
+
+Al igual que el ribosoma necesitaba algo de introducción en el extremo 5', donde encontramos la "región cinco prima no traducida", al final de una región codificante de proteínas encontramos una construcción similar llamada la "región tres prima no traducida".
+
+Se podrían escribir muchas palabras sobre la "región tres prima no traducida", pero aquí cito lo que dice la Wikipedia: “La región tres prima sin traducir juega un papel crucial en la expresión génica al influir en la localización, estabilidad, exportación y eficiencia de traducción de un ARNm. A pesar de nuestra comprensión actual de esta región, sigue siendo relativamente misteriosa".
+
+Lo que sí sabemos es que ciertas "regiones tres primas no traducidas" son muy buenas para promover la expresión de proteínas. Según el documento de la OMS, la "región tres prima no traducida" de la vacuna de BioNTech/Pfizer se seleccionó del “potenciador amino-terminal del ARNm dividido (AES) y el ARN ribosómico 12S codificado mitocondrial para conferir estabilidad al ARN y una alta expresión de proteína total”. A lo que voy, bien hecho.
+
+
+![](https://berthub.eu/articles/vaccine.jpg)
+
+## El AAAAAAAAAAAAAAAAAAAAAA final de todo
+
+El final del ARNm está poliadenilado. Esta es una forma elegante de decir que termina en una gran cantidad de AAAAAAAAAAAAAAAAAA. Parece que incluso el ARNm está también harto de 2020.
+
+El ARNm se puede reutilizar muchas veces, pero a medida que esto sucede, también pierde algunas de las A al final. Una vez que se agotan las A, el ARNm ya no es funcional y se descarta. De esta manera, la cola 'poli-A' es una protección contra la degradación.
+
+Se han realizado estudios para averiguar cuál es el número óptimo de A al final para las vacunas de ARNm. Leí en la literatura abierta que este alcanzó un máximo de 120 más o menos.
+
+La vacuna BNT162b2 termina con:
+
+```
+                                     ****** ****
+UAGCAAAAAA AAAAAAAAAA AAAAAAAAAA AAAAGCAUAU GACUAAAAAA AAAAAAAAAA 
+AAAAAAAAAA AAAAAAAAAA AAAAAAAAAA AAAAAAAAAA AAAAAAAAAA AAAA
+```
+
+Se trata de 30 A, luego un "enlazador de 10 nucleótidos" (GCAUAUGACU), seguido de otros 70 A.
+
+Sospecho que lo que vemos aquí es el resultado de una mayor optimización patentada para mejorar aún más la expresión de proteínas.
+
+## Resumiendo
+
+Con esto, ahora conocemos el contenido exacto de ARNm de la vacuna BNT162b2 y, en la mayoría de los casos, entendemos por qué están ahí:
+
+- El CAP para asegurarse de que el ARN se vea como un ARNm normal
+- Una región no traducida (UTR) 5 'exitosa y optimizada conocida
+- Un péptido señal de codón optimizado para enviar la proteína Spike al lugar correcto (copiado al 100% del virus original)
+- Una versión optimizada de codones del pico original, con dos sustituciones de 'Prolina' para asegurarse de que la proteína aparezca en la forma correcta.
+- Una región no traducida 3 'exitosa y optimizada conocida
+- Una cola poli-A ligeramente misteriosa con un 'enlazador' inexplicable allí
+
+La optimización de codones agrega mucho G y C al ARNm. Mientras tanto, usar Ψ (1-metil-3'-pseudouridililo) en lugar de U ayuda a evadir nuestro sistema inmunológico, por lo que el ARNm permanece el tiempo suficiente para que podamos ayudar a entrenar el sistema inmunológico.
+
+## Más lectura/material audio-visual
+
+En 2017 realicé una presentación de dos horas sobre el ADN, que pueden ver aquí . Al igual que esta página, está dirigida a personas informáticas.
+
+Además, he mantenido una página sobre ['ADN para programadores'](https://k5mdu36cvbs6lbb6orczysify4--berthub-eu.translate.goog/amazing-dna) desde 2001.
+
+También puede disfrutar de [esta introducción a nuestro increíble sistema inmunológico](https://k5mdu36cvbs6lbb6orczysify4--berthub-eu.translate.goog/articles/posts/immune-system/).
+
+Finalmente, [esta lista de las publicaciones de mi blog](https://k5mdu36cvbs6lbb6orczysify4--berthub-eu.translate.goog/articles) tiene bastante material relacionado con el ADN, el SARS-CoV-2 y el COVID.
+
+© 2014-2020 bert hubert
 
 
 <a name="myfootnote1">1</a>: (NT) Código fuente es un término utilizado en informática para referirse al conjunto de instrucciones que una computadora puede interpretar para llevar a cabo una determinada tarea. En este [enlace](https://github.com/andresmasegosa/Vacunas-Covid/edit/gh-pages/index.md) puedes ver el código fuente de esta web. 
